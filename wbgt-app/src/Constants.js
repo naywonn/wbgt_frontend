@@ -1,0 +1,1 @@
+// export const API_URL = 'https://wet-bulb-globe-temperature.azurewebsites.net'
