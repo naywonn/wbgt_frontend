@@ -10,7 +10,7 @@ export default function ResultTable() {
 
   const loadData = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/all_current');
+      const response = await axios.get('http://localhost:8080/ML/all_current');
       // console.log("Received data:", response.data);
       // Parse the JSON string to convert it into a JavaScript array
       const jsonData = JSON.parse(response.data);

@@ -10,12 +10,17 @@ function Home() {
 
     return (
         <div>
-            <h2>Welcome to the Web Bulb Globe Temperature Application</h2>
+            <div className="title-container">
+                <h2 className="title">Welcome to the Web Bulb Globe Temperature Application</h2>
+            </div>
+            
             <h6>Get Wet Bulb Globe Temperature Across Singapore</h6>
             <AppDescription />
+            <h6>Weather Stations Map</h6>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <MapComponent />
             </div>
+            <h6>WBGT Chart</h6>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <img src="/WBGT_Chart.jpg" alt="WBGT Chart" className="wbgt-chart-img" />
             </div>
@@ -24,7 +29,7 @@ function Home() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <p>For more info, please download our app here</p>
-                <img src="/logo192.png" alt="Logo" className="logo-img" />
+                <img src="/wbgt.jpeg" alt="Logo" className="logo-img2" />
             </div>
             <AboutUs />
         </div>

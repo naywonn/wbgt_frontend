@@ -15,7 +15,7 @@ function Dashboard() {
 
   
   useEffect(() => {
-    axios.get('http://localhost:8080/api/all_current')
+    axios.get('http://localhost:8080/ML/all_current')
       .then((response) => {
         const data = JSON.parse(response.data);
 
@@ -80,7 +80,9 @@ function Dashboard() {
 
   return (
     <div>
-      <h2>DashBoard Page</h2>
+      <div className="title-container">
+        <h2 className="title">DashBoard Page</h2>
+      </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div className="dashboard-box">
           <MeanSquareError />

@@ -10,7 +10,7 @@ function LineChart() {
   useEffect(() => {
     const fetchMSEValues = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/all_mse');
+        const response = await axios.get('http://localhost:8080/ML/all_mse');
         const mseData = response.data;
 
         

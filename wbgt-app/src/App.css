@@ -7,15 +7,18 @@
 .App {
   text-align: center;
 }
+
 .App-logo {
-  height: 40vmin;
+  height: 60vmin;
   pointer-events: none;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -26,64 +29,93 @@
   font-size: calc(10px + 2vmin);
   color: rgb(137, 13, 13);
 }
+
 .App-link {
   color: #61dafb;
 }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 /* Style for the heading */
 h2 {
   font-size: 24px;
   font-weight: bold;
-  text-align: center; /* Center the text within the element */
+  text-align: center;
+  /* Center the text within the element */
   margin-top: 20px;
 }
+
 h6 {
-  font-size: 24px;  
-  text-align: center; /* Center the text within the element */
+  font-size: 24px;
+  text-align: center;
+  /* Center the text within the element */
   margin-top: 40px;
   text-size-adjust: 0
 }
+
 p {
   font-size: 15px;
-  text-align: center; /* Center the text within the element */
+  text-align: center;
+  /* Center the text within the element */
   margin-top: 60px;
   margin-left: 100px;
   margin-right: 100px;
 }
 
 /* Style for the logo image */
-.logo-img {
-  max-width: 50px; /* Set the maximum width of the image to 100px */
-  max-height: 50px; /* Set the maximum height of the image to 100px */
-  margin: 10px; /* Adjust the margin as needed */
+.logo-img1 {
+  max-width: 100px;
+  /* Set the maximum width of the image to 100px */
+  max-height: 100px;
+  /* Set the maximum height of the image to 100px */
+  margin: 0px;
+  /* Adjust the margin as needed */
+}
+
+.logo-img2 {
+  max-width: 70px;
+  /* Set the maximum width of the image to 100px */
+  max-height: 70px;
+  /* Set the maximum height of the image to 100px */
+  margin: 10px;
+  /* Adjust the margin as needed */
 }
 
 .map-container {
-  width: 50%; /* Set the width to 100% to make the map responsive */
-  height: auto; /* Adjust the height as needed */
-  margin-top: 20px;
-  margin-bottom: 20px;  /* Add some spacing between components */
+  width: 50%;
+  /* Set the width to 100% to make the map responsive */
+  height: auto;
+  /* Adjust the height as needed */
+  margin-top: 10px;
+  margin-bottom: 20px;
+  /* Add some spacing between components */
 }
 
 /* Style for the WGBT_Chart.jpg image */
 .wbgt-chart-img {
-  width: 50%; /* Set the width to 100% to make the image responsive */
-  height: auto; /* Allow the height to adjust proportionally based on the width */
-  margin-top: 20px; /* Add some spacing between the map and image */
-  margin-bottom: 20px; /* Add some spacing between the image and other components */
+  width: 50%;
+  /* Set the width to 100% to make the image responsive */
+  height: auto;
+  /* Allow the height to adjust proportionally based on the width */
+  margin-top: 10px;
+  /* Add some spacing between the map and image */
+  margin-bottom: 20px;
+  /* Add some spacing between the image and other components */
 }
+
 /* Style for the table */
 .result-table {
   /* width: 50%; */
   table-layout: auto;
-  
+
   border-collapse: collapse;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -95,28 +127,36 @@ p {
   padding: 8px;
   text-align: center;
 }
+
 .page-container {
-  display: flex;  
-  flex-direction: column; 
-  
+  display: flex;
+  flex-direction: column;
+
   align-items: center;
-  height: 100vh; /* Set the height of the container to the full viewport height */
+  height: 100vh;
+  /* Set the height of the container to the full viewport height */
 }
 
 .login-container {
-  
-  width: 300px; /* Set the width of the login form as per your preference */
-  padding: 20px; /* Add some padding for better spacing */
-  border: 1px solid #ccc; /* Add a border for visual separation */
-  border-radius: 5px; /* Add some border radius for rounded corners */
-  background-color: #f7f7f7; /* Optional: Set a background color for the login form */
+
+  width: 300px;
+  /* Set the width of the login form as per your preference */
+  padding: 20px;
+  /* Add some padding for better spacing */
+  border: 1px solid #ccc;
+  /* Add a border for visual separation */
+  border-radius: 5px;
+  /* Add some border radius for rounded corners */
+  background-color: #f7f7f7;
+  /* Optional: Set a background color for the login form */
   margin-top: 20px;
 }
 
 .graph-container {
   display: flex;
   justify-content: center;
-  align-items: center; /* Add this to vertically center the charts */
+  align-items: center;
+  /* Add this to vertically center the charts */
   margin: 10px;
   flex-wrap: wrap;
 }
@@ -143,7 +183,8 @@ p {
   background-color: #fff;
   border: 1px solid #05776b;
   padding: 20px;
-  margin: 20px;;
+  margin: 20px;
+  ;
   flex: 1;
 }
 
@@ -160,13 +201,49 @@ p {
 }
 
 
+.logo-container {
+  display: flex;
+  align-items: center;
+}
 
+.logo-text {
+  font-size: 24px;
+  margin-left: 10px;
+  color: #3498db; 
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: moveLetters 5s infinite linear;
+  position: relative;
+}
 
+.logo-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: -100%;
+  white-space: nowrap;
+  animation: moveLetters 5s infinite linear;
+  animation-delay: 0.5s;
+}
 
+@keyframes moveLetters {
+  0% {
+      transform: translateX(0);
+  }
+  100% {
+      transform: translateX(20px); 
+  }
+}
+.title-container {
+  text-align: center; /* Center the dashboard title */
+  margin-top: 20px; /* Add some distance from the navigation bar */
+}
 
-
-
-
-
-
+.title {
+  background-color: #e3f2fd; /* Set your desired background color */
+  padding: 10px 20px; /* Add some padding to create a shaded effect */
+  color: rgb(14, 4, 4); /* Set text color to white for better contrast */
+  display: inline-block; /* Make sure the background only covers the title's width */
+}
 

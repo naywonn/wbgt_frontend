@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 export default function ViewStaff() {
     const [staff, setStaff] = useState({
         name: "",
+        password: "",
         title: "",
         email: "",
     });
@@ -13,7 +14,7 @@ export default function ViewStaff() {
 
     useEffect(() => {
         const loadStaff = async () => {
-            const result = await axios.get(`http://localhost:8080/api/staffs/${id}`);
+            const result = await axios.get(`http://localhost:8080/staff/list/${id}`);
             setStaff(result.data);
         };
         loadStaff();
@@ -32,6 +33,10 @@ export default function ViewStaff() {
                                 <li className="list-group-item">
                                     <b>Name: </b>
                                     {staff.name}
+                                </li>
+                                <li className="list-group-item">
+                                    <b>Password: </b>
+                                    {staff.password}
                                 </li>
                                 <li className="list-group-item">
                                     <b>Title: </b>

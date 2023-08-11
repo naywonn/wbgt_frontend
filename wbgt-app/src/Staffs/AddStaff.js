@@ -7,11 +7,12 @@ export default function AddStaff() {
 
     const [staff, setStaff] = useState({
         name: "",
+        password: "",
         title: "",
         email: "",
     });
 
-    const { name, title, email } = staff;
+    const { name,password, title, email } = staff;
 
     const onInputChange = (e) => {
         setStaff({ ...staff, [e.target.name]: e.target.value });
@@ -19,7 +20,7 @@ export default function AddStaff() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:8080/api/staffs", staff);
+        await axios.post("http://localhost:8080/staff/list", staff);
         navigate("/staffsList");
       };
 
@@ -40,6 +41,19 @@ export default function AddStaff() {
                                 placeholder="Enter name"
                                 name="name"
                                 value={name}
+                                onChange={(e) => onInputChange(e)}
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="Password" className="form-label">
+                                Password
+                            </label>
+                            <input
+                                type={"text"}
+                                className="form-control"
+                                placeholder="Enter password"
+                                name="password"
+                                value={password}
                                 onChange={(e) => onInputChange(e)}
                             />
                         </div>

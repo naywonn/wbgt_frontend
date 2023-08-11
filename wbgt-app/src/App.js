@@ -17,19 +17,19 @@ function App() {
 
   function handleLogin(username, password) {
     // Make a POST request to your backend's login endpoint
-    fetch('http://localhost:8080/api/login', {
+    fetch('http://localhost:8080/staff/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id: username, password }),
+      body: JSON.stringify({ 'username': username, 'password': password }),
     })
       .then((response) => {
         
         if (response.ok) {
           setIsLoggedIn(true);
           
-          setAuthenticatedStaff({ id: username, title: 'admin' });
+          setAuthenticatedStaff({ 'username': username, 'title': 'admin' });
         }else {
           console.error('Login error:', response.statusText);
         }
@@ -41,7 +41,7 @@ function App() {
 
   function handleLogout() {
     // Make a POST request to your backend's logout endpoint
-    fetch('http://localhost:8080/api/logout', {
+    fetch('http://localhost:8080/staff/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,12 +75,12 @@ function App() {
               isLoggedIn ? (
                 <Dashboard authenticatedStaff={authenticatedStaff} />
               ) : (
-                <Navigate to="/" />
+                <Navigate to="/dashboard" />
               )
             }
           />
 
-          <Route path="/api/login" element={<LoginPage onLogin={handleLogin} />} />
+          <Route path="/staff/login" element={<LoginPage onLogin={handleLogin} />} />
           <Route path="/staffsList" element={<StaffsList />} />
           <Route path="/addStaff" element={<AddStaff />} />
           <Route exact path="/editStaff/:id" element={<EditStaff />} />

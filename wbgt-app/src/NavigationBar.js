@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 function NavigationBar({ isLoggedIn, handleLogout }) {
@@ -7,8 +8,9 @@ function NavigationBar({ isLoggedIn, handleLogout }) {
     return (
         <nav className="py-2 bg-light border-bottom">
             <div className="container d-flex justify-content-between align-items-center">
-                <div>
-                    <img src="/logo192.png" alt="Logo" className="logo-img" />
+                <div className="logo-container">
+                    <img src="/wbgtTeam9.jpeg" alt="Logo" className="logo-img1" />
+                    <h1 className="logo-text">Team 9 AD Project</h1>
                 </div>
                 <ul className="nav">
                     <li className="nav-item">
@@ -26,7 +28,7 @@ function NavigationBar({ isLoggedIn, handleLogout }) {
                     )}
                     {!isLoggedIn ? (
                         <li className="nav-item">
-                            <Link className="nav-link" to={"/api/login"}>Login</Link>
+                            <Link className="nav-link" to={"/staff/login"}>Login</Link>
                         </li>
                     ) : (
                         <li className="nav-item">
