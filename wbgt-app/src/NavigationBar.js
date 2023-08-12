@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.css';
 import { Link, useNavigate } from 'react-router-dom';
+import './App.css';
 
 function NavigationBar({ isLoggedIn, handleLogout }) {
     const navigate = useNavigate();
 
     return (
-        <nav className="py-2 bg-light border-bottom">
+        <nav className="py-2 bg-light border-bottom shaded-nav">
             <div className="container d-flex justify-content-between align-items-center">
                 <div className="logo-container">
                     <img src="/wbgtTeam9.jpeg" alt="Logo" className="logo-img1" />
@@ -15,6 +15,9 @@ function NavigationBar({ isLoggedIn, handleLogout }) {
                 <ul className="nav">
                     <li className="nav-item">
                         <Link className="nav-link" to={"/"}>Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/faq">FAQ</Link>
                     </li>
                     {isLoggedIn && (
                         <>

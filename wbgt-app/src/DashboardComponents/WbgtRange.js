@@ -3,7 +3,7 @@ import React from 'react';
 function WbgtRange({ minWbgt, maxWbgt }) {
   return (
     <div>
-      <h3 style={{ textAlign: 'center' }}>CurrentWBGT Range</h3>
+      <h3 style={{ textAlign: 'center' }}>Current WBGT Range</h3>
       {minWbgt !== null && maxWbgt !== null ? (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <p style={{ marginBottom: '5px' }}>

@@ -16,7 +16,7 @@ function Dashboard() {
   
   useEffect(() => {
     axios.get('http://localhost:8080/ML/all_current')
-      .then((response) => {
+      .then((response) => {        
         const data = JSON.parse(response.data);
 
         // Extract station IDs from the API response
@@ -81,7 +81,7 @@ function Dashboard() {
   return (
     <div>
       <div className="title-container">
-        <h2 className="title">DashBoard Page</h2>
+        <h2 className="title">Dashboard Page</h2>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div className="dashboard-box">

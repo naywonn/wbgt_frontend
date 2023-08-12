@@ -22,8 +22,6 @@ export default function ResultTable() {
     }
   };
 
-
-
   const formatDateTime = (dateTimeStr) => {
     const options = {
       year: '2-digit',
@@ -42,7 +40,6 @@ export default function ResultTable() {
 
     return `${dateFormatter.format(dateTime)} `;
   };
-
 
   return (
     <div className="table-container">

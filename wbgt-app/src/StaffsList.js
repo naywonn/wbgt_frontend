@@ -1,44 +1,49 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function StaffsList() {
-  
+
 
   const [staffs, setStaffs] = useState([]);
+// eslint-disable-next-line
+const { id } = useParams();
 
+useEffect(() => {
+  loadStaffs();
+}, []);
 
-  useEffect(() => {
-    loadStaffs();
-  }, []);
-
-  const loadStaffs = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/staff/list");
-      // const jsonData = JSON.parse(response.data);
-      setStaffs(response.data);
-      
-    } catch (error) {
-      console.error("Error loading staffs:", error);
+const loadStaffs = async () => {
+  try {
+    const result = await axios.get("http://localhost:8080/staff/list", {
+      withCredentials: true, // Include credentials (cookies)
+    });
+    setStaffs(result.data);
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Redirect to the login page when unauthorized
+      window.location.href = '/staff/login';
+    } else {
+      // Handle other errors
     }
-  };
+  }
+};
 
-  const deleteStaff = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8080/staff/list/${id}`);
-      loadStaffs();
-    } catch (error) {
-      console.error("Error deleting staff:", error);
-    }
-  };
+const deleteStaff = async (id) => {
+  await axios.delete(`http://localhost:8080/staff/list/${id}`, {
+    withCredentials: true, // Include credentials (cookies)
+  });
+  loadStaffs();
+};
 
 
   return (
     <div className="container">
-      <h3 className="title">Manage Staff Page</h3>
+      <div className="title-container">
+        <h3 className="title">Manage Staff Page</h3>
+      </div>
       <div className="py-4">
-
         <table className="table border shadow">
           <thead>
             <tr>
@@ -53,7 +58,7 @@ export default function StaffsList() {
           <tbody className="table-group-divider">
             {staffs.map((staff, index) => (
               <tr key={staff.id}>
-              <td>{index + 1}</td>
+                <td>{index + 1}</td>
                 <td>{staff.name}</td>
                 <td>{staff.password}</td>
                 <td>{staff.title}</td>
@@ -93,4 +98,3 @@ export default function StaffsList() {
 
 
 
-  

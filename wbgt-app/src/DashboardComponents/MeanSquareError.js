@@ -27,7 +27,7 @@ function MeanSquareError() {
 
   return (
     <div>
-      <h3 style={{ textAlign: 'center' }}>Mean Square Error</h3>
+      <h3 style={{ textAlign: 'center' }}>Current Mean Square Error</h3>
       <p>Min: {minMSE !== null ? minMSE.toFixed(15) : 'Loading...'}</p>
       <p>Max: {maxMSE !== null ? maxMSE.toFixed(15) : 'Loading...'}</p>
     </div>

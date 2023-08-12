@@ -14,7 +14,9 @@ export default function ViewStaff() {
 
     useEffect(() => {
         const loadStaff = async () => {
-            const result = await axios.get(`http://localhost:8080/staff/list/${id}`);
+            const result = await axios.get(`http://localhost:8080/staff/list/${id}`, {
+                withCredentials: true, // Include credentials (cookies)
+              });
             setStaff(result.data);
         };
         loadStaff();

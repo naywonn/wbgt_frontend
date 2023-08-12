@@ -6,30 +6,41 @@ function WbgtValues() {
   const [predictedValues, setPredictedValues] = useState([]);
   const [minValue, setMinValue] = useState(null);
   const [maxValue, setMaxValue] = useState(null);
+  const [maintenanceInProgress, setMaintenanceInProgress] = useState(false);
 
   const stationOptions = [
-    'S44', 'S116', 'S24', 'S104', 'S109',
+    'S106','S44', 'S116', 'S24', 'S104', 'S109',
     'S121', 'S43', 'S50', 'S60', 'S107', 'S111', 'S115', 'S117'
   ];
 
   const fetchPredictedValues = async (stationId) => {
     try {
-      const response = await axios.get(`https://wbgtgroup9.azurewebsites.net/predict?hour=1&station_id=${stationId}`);
+      const response = await axios.get(`http://localhost:8080/ML/predicted-wbgt/${stationId}`);
       const responseData = JSON.parse(response.data);
-  
-      const predictedValues = responseData.map(item => parseFloat(item.predicted_value));
-      setPredictedValues(predictedValues);
-  
-      setMinValue(Math.min(...predictedValues));
-      setMaxValue(Math.max(...predictedValues));
+
+      if (responseData && responseData.length > 0) {
+        const predictedValuesArray = responseData.map(item => parseFloat(item.predicted_value));
+        setPredictedValues(predictedValuesArray);
+
+        const minPredictedValue = Math.min(...predictedValuesArray);
+        const maxPredictedValue = Math.max(...predictedValuesArray);
+        setMinValue(minPredictedValue);
+        setMaxValue(maxPredictedValue);
+        setMaintenanceInProgress(false);
+      } else {
+        setPredictedValues([]);
+        setMinValue(null);
+        setMaxValue(null);
+        setMaintenanceInProgress(true);
+      }
     } catch (error) {
-      console.error('Error fetching predicted values:', error);
+      console.error('Error fetching predicted value:', error);
       setPredictedValues([]);
       setMinValue(null);
       setMaxValue(null);
+      setMaintenanceInProgress(true); // Reset maintenance flag if there's an error
     }
   };
-  
 
   const handleStationChange = (event) => {
     const selectedStationId = event.target.value;
@@ -51,12 +62,15 @@ function WbgtValues() {
           ))}
         </select>
       </div>
-      {predictedValues.length > 0 && selectedStation && (
-        <div style={{ marginTop: '10px' }}>
-          <p>Min Predicted WBGT: {minValue !== null ? minValue.toFixed(2) : 'Loading...'}</p>
-          <p>Max Predicted WBGT: {maxValue !== null ? maxValue.toFixed(2) : 'Loading...'}</p>
-         
-        </div>
+      {maintenanceInProgress ? (
+        <p style={{ marginTop: '10px', color: 'red' }}>Maintenance in progress</p>
+      ) : (
+        predictedValues.length > 0 && selectedStation && (
+          <div style={{ marginTop: '10px' }}>
+            <p>Min Predicted WBGT: {minValue !== null ? minValue.toFixed(2) : 'Loading...'}</p>
+            <p>Max Predicted WBGT: {maxValue !== null ? maxValue.toFixed(2) : 'Loading...'}</p>
+          </div>
+        )
       )}
     </div>
   );

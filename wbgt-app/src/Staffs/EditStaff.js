@@ -3,10 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function EditStaff() {
-    let navigate = useNavigate();
-
-    
-    // eslint-disable-next-line
+    const navigate = useNavigate();
     const { id } = useParams();
 
     const [staff, setStaff] = useState({
@@ -16,26 +13,56 @@ export default function EditStaff() {
         email: "",
     });
 
-    const { name,password, title, email } = staff;
+    const [errors, setErrors] = useState({});
 
     const onInputChange = (e) => {
-        setStaff({ ...staff, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setStaff({ ...staff, [name]: value });
+        setErrors({ ...errors, [name]: "" });
+    };
+
+    const validateField = (name, value) => {
+        if (!value) {
+            setErrors((prevErrors) => ({ ...prevErrors, [name]: `${name} is required` }));
+            return false;
+        }
+        setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+        return true;
+    };
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        const isNameValid = validateField("name", staff.name);
+        const isPasswordValid = validateField("password", staff.password);
+        const isTitleValid = validateField("title", staff.title);
+        const isEmailValid = validateField("email", staff.email);
+
+        if (isNameValid && isPasswordValid && isTitleValid && isEmailValid) {
+            try {
+                await axios.put(`http://localhost:8080/staff/list/${id}`, staff, {
+                    withCredentials: true,
+                });
+                navigate("/staffsList");
+            } catch (error) {
+                console.error("Error updating staff:", error);
+            }
+        }
     };
 
     useEffect(() => {
         const loadStaff = async () => {
-            const result = await axios.get(`http://localhost:8080/staff/list/${id}`);
-            setStaff(result.data);
+            try {
+                const result = await axios.get(`http://localhost:8080/staff/list/${id}`, {
+                    withCredentials: true,
+                });
+                setStaff(result.data);
+            } catch (error) {
+                console.error("Error fetching staff:", error);
+            }
         };
         loadStaff();
     }, [id]);
-         
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        await axios.put(`http://localhost:8080/staff/list/${id}`, staff);
-        navigate("/staffsList");
-    };
 
     return (
         <div className="container">
@@ -43,59 +70,71 @@ export default function EditStaff() {
                 <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
                     <h2 className="text-center m-4">Edit Staff</h2>
 
-                    <form onSubmit={(e) => onSubmit(e)}>
+                    <form onSubmit={onSubmit}>
+                        {/* Name input */}
                         <div className="mb-3">
                             <label htmlFor="Name" className="form-label">
                                 Name
                             </label>
                             <input
-                                type={"text"}
+                                type="text"
                                 className="form-control"
                                 placeholder="Enter name"
                                 name="name"
-                                value={name}
-                                onChange={(e) => onInputChange(e)}
+                                value={staff.name}
+                                onChange={onInputChange}
                             />
+                            {errors.name && <div className="error-message">{errors.name}</div>}
                         </div>
+
+                        {/* Password input */}
                         <div className="mb-3">
                             <label htmlFor="Password" className="form-label">
                                 Password
                             </label>
                             <input
-                                type={"text"}
+                                type="text"
                                 className="form-control"
                                 placeholder="Enter password"
                                 name="password"
-                                value={password}
-                                onChange={(e) => onInputChange(e)}
+                                value={staff.password}
+                                onChange={onInputChange}
                             />
+                            {errors.password && <div className="error-message">{errors.password}</div>}
                         </div>
+
+                        {/* Title input */}
                         <div className="mb-3">
                             <label htmlFor="Title" className="form-label">
                                 Title
                             </label>
                             <input
-                                type={"text"}
+                                type="text"
                                 className="form-control"
                                 placeholder="Enter Staff title"
                                 name="title"
-                                value={title}
-                                onChange={(e) => onInputChange(e)}
+                                value={staff.title}
+                                onChange={onInputChange}
                             />
+                            {errors.title && <div className="error-message">{errors.title}</div>}
                         </div>
+
+                        {/* Email input */}
                         <div className="mb-3">
                             <label htmlFor="Email" className="form-label">
                                 E-mail
                             </label>
                             <input
-                                type={"text"}
+                                type="text"
                                 className="form-control"
                                 placeholder="Enter e-mail address"
                                 name="email"
-                                value={email}
-                                onChange={(e) => onInputChange(e)}
+                                value={staff.email}
+                                onChange={onInputChange}
                             />
+                            {errors.email && <div className="error-message">{errors.email}</div>}
                         </div>
+
                         <button type="submit" className="btn btn-outline-primary">
                             Submit
                         </button>

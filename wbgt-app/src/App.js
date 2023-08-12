@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Dashboard from './Dashboard';
+import FaqPage from './FaqPage';
+import Home from './Home';
 import LoginPage from './LoginPage';
+import NavigationBar from './NavigationBar';
 import AddStaff from "./Staffs/AddStaff";
 import EditStaff from "./Staffs/EditStaff";
 import ViewStaff from "./Staffs/ViewStaff";
 import StaffsList from './StaffsList';
-
-import Home from './Home';
-import NavigationBar from './NavigationBar';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,6 +23,7 @@ function App() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 'username': username, 'password': password }),
+      credentials: 'include', // Include credentials (cookies)
     })
       .then((response) => {
         
@@ -46,10 +47,13 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
     })
       .then((response) => {
         if (response.ok) {
+          console.log("I am inside handle logout");
           setIsLoggedIn(false);
+          console.log(isLoggedIn);
           setAuthenticatedStaff(null);
         }
       })
@@ -57,7 +61,6 @@ function App() {
         console.error('Logout error:', error);
       });
   }
-
 
   return (
     <BrowserRouter>
@@ -75,16 +78,16 @@ function App() {
               isLoggedIn ? (
                 <Dashboard authenticatedStaff={authenticatedStaff} />
               ) : (
-                <Navigate to="/dashboard" />
+                <Navigate to="/dashboard" /> 
               )
             }
           />
-
           <Route path="/staff/login" element={<LoginPage onLogin={handleLogin} />} />
           <Route path="/staffsList" element={<StaffsList />} />
           <Route path="/addStaff" element={<AddStaff />} />
           <Route exact path="/editStaff/:id" element={<EditStaff />} />
           <Route exact path="/viewStaff/:id" element={<ViewStaff />} />
+          <Route path="/faq" element={<FaqPage />}/>
         </Routes>
       </div>
     </BrowserRouter>
